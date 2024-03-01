@@ -1,6 +1,5 @@
 import { db } from "./db.js";
 import { getHhToken } from "./hh-api.js";
-import { TokenResponse } from "./types.js";
 
 const hhAppHeader = process.env.HH_APP_HEADER!;
 
