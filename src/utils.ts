@@ -21,7 +21,10 @@ export const fetchHhData = async (
   input: string | URL | globalThis.Request,
   init?: RequestInit
 ) => {
-  let tokenValue: string = (await db.get("SELECT main FROM token"))!;
+  const data: { main: string } | undefined = await db.get(
+    "SELECT main FROM token"
+  );
+  const tokenValue = data!.main;
 
   return fetchHh(input, {
     headers: {
@@ -32,9 +35,21 @@ export const fetchHhData = async (
   });
 };
 
+export const getTokenDate = async (): Promise<Date | undefined> => {
+  const data: { updated: string } | undefined = await db.get(
+    "SELECT updated FROM token"
+  );
+
+  if (data) {
+    return new Date(`${data.updated.replace(" ", "T")}Z`);
+  } else {
+    return undefined;
+  }
+};
+
 export const updateHhToken = async () => {
   const token = await getHhToken();
 
-  await db.run("TRUNCATE TABLE token");
-  await db.run(`INSERT INTO TABLE token(main) VALUES(${token.access_token})`);
+  await db.run("DELETE FROM token");
+  await db.run(`INSERT INTO TABLE token(main) VALUES('${token.access_token}')`);
 };
