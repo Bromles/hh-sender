@@ -6,8 +6,11 @@ services:
     build: .
     container_name: hh-fastify
     environment:
-      HH_APP_HEADER: "MyApp/1.0 (bromles.dev@gmail.com)"
+      HH_APP_HEADER: "HhResumeUpdater/1.0 (bromles.dev@gmail.com)"
+      HH_BASE_URL: "https://api.hh.ru/"
+      HH_CLIENT_ID: "HhResumeUpdater"
+      HH_CLIENT_SECRET: "123"
     ports:
-    - "3000:3000"
+      - "3000:3000"
     volumes:
-    - db-data:/app/data
+      - db-data:/app/data
