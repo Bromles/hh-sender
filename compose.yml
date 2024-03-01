@@ -1,0 +1,13 @@
+volumes:
+  db-data:
+
+services:
+  backend:
+    build: .
+    container_name: hh-fastify
+    environment:
+      HH_APP_HEADER: "MyApp/1.0 (bromles.dev@gmail.com)"
+    ports:
+    - "3000:3000"
+    volumes:
+    - db-data:/app/data
