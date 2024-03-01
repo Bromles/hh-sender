@@ -31,7 +31,7 @@ await fastify.listen({ port, host: "0.0.0.0" });
 
 console.log(`[server]: Server is running at http://localhost:${port}`);
 
-const cleanup = async () => {
+const cleanup = () => {
   fastify.close(() => {
     console.log("shutting down, closing db connection");
     db.close();
